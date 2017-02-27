@@ -4,19 +4,25 @@ namespace frontend\modules\ems\controllers;
 
 use yii\web\Controller;
 
+use frontend\modules\ems\models\PersonCid;
+
 /**
  * Default controller for the `ems` module
  */
 class DefaultController extends Controller
 {
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    public function actionIndex($search=NULL)
+    
+    public function actionIndex()
     {
-        return $this->render('index',[
-            'search'=>$search
-        ]);
+        $searchModel = new PersonCid();
+       
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        
+        return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    
+        ]);        
+        
     }
 }
