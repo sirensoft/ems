@@ -31,6 +31,14 @@ use yii\helpers\Html;
                 [
                     'class' => 'yii\grid\SerialColumn',
                 ],
+                [
+                    'label'=>' ',
+                    'format' => 'raw',
+                    'value' => function($model) {
+                        return Html::a('<i class="glyphicon glyphicon-zoom-in"></i>', ['/ems/default/view', 'cid' =>$model['CID']]);
+                    },
+                    'filter'=>FALSE
+                ],
                 'CID:text:เลข13หลัก',
                 'PNAME:text:คำนำหน้า',
                 'NAME:text:ชื่อ',
@@ -45,14 +53,7 @@ use yii\helpers\Html;
                      }
                 ],
                 'age_y:integer:อายุ(ปี)',
-                [
-                'label'=>' ',
-                'format' => 'raw',
-                'value' => function($model) {
-                   return Html::a('<i class="glyphicon glyphicon-zoom-in"></i>', ['/ems/default/view', 'cid' =>$model['CID']]);
-                },
-                'filter'=>FALSE
-        ],
+                
             ]
         ]);
         ?>
