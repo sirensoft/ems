@@ -34,15 +34,15 @@ use kartik\tabs\TabsX;
 echo TabsX::widget([
     'items' => [
         [
-            'label' => 'รายชื่อ',
+            'label' => 'รายชื่อค้นหา',
             'content' => $this->render('person', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]),
         ],
         [
-            'label' => 'แผนที่',
-            'content' => $this->render('map', [
+            'label' => 'รายชื่อขึ้นทะเบียน',
+            'content' => $this->render('list', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]),
