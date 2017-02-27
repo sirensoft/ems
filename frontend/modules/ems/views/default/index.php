@@ -1,22 +1,11 @@
 <?php
 $this->title = "ค้นหา";
+$this->params['breadcrumbs'][] = "ค้นหาผู้ป่วย";
 
-$css = <<< CSS
-.alignment
-{
-    margin-top:10px;
-}
-CSS;
-$this->registerCss($css);
-
-use kartik\grid\GridView;
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-
-$this->params['breadcrumbs'][] = "ค้นหาผู้ป่วย";
+use kartik\tabs\TabsX;
 ?>
-
 <div class="panel panel-info" >
 
     <div class="panel-body">
@@ -30,7 +19,7 @@ $this->params['breadcrumbs'][] = "ค้นหาผู้ป่วย";
 
         <div class="input-group">
 
-            <?= $form->field($searchModel, 'search')->textInput(['placeholder'=>'13หลัก/ชื่อ/นามสกุล'])->label(FALSE) ?>
+            <?= $form->field($searchModel, 'search')->textInput(['placeholder' => '13หลัก/ชื่อ/นามสกุล'])->label(FALSE) ?>
             <span class="input-group-btn">
                 <button class="btn btn-default alignment" type="submit">
                     <i class="glyphicon glyphicon-search"></i> ค้นหา
@@ -41,47 +30,22 @@ $this->params['breadcrumbs'][] = "ค้นหาผู้ป่วย";
     </div>
 </div>
 
-<div class="panel panel-default">
-    
-    <div class="panel-body">
-        <?php
-        echo GridView::widget([
-            'responsiveWrap' => false,
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'columns' => [
-                [
-                    'class' => 'yii\grid\SerialColumn',
-                ],
-                'CID:text:เลข13หลัก',
-                'PNAME:text:คำนำหน้า',
-                'NAME:text:ชื่อ',
-                'LNAME:text:นามสกุล',
-                [
-                    'attribute'=>'SEX',
-                    'label'=>'เพศ',
-                     'value'=>function($model){
-                        $sex='หญิง';
-                        if($model['SEX']==1)$sex='ชาย';
-                        return $sex;
-                     }
-                ],
-                'age_y:integer:อายุ(ปี)',
-                [
-                'label'=>' ',
-                'format' => 'raw',
-                'value' => function($model) {
-                   return Html::a('<i class="glyphicon glyphicon-zoom-in"></i>', ['/ems/default/view', 'cid' =>$model['CID']]);
-                },
-                'filter'=>FALSE
+<?php
+echo TabsX::widget([
+    'items' => [
+        [
+            'label' => 'รายชื่อ',
+            'content' => $this->render('person', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]),
         ],
-            ]
-        ]);
-        ?>
-    </div>
-
-</div>
-
-
-
-
+        [
+            'label' => 'แผนที่',
+            'content' => $this->render('map', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]),
+        ]
+    ]
+]);

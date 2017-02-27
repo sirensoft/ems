@@ -31,7 +31,7 @@ AppAsset::register($this);
         'brandLabel' => '<i class="glyphicon glyphicon-plus"></i> EMS',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-custom navbar-fixed-top',
         ],
     ]);
     $menuItems = [
