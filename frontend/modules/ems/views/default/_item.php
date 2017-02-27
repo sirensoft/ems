@@ -19,11 +19,11 @@ use yii\helpers\Html;
                 </tr>
                 <tr>
                     <td>ชื่อ-สกุล</td>
-                    <td><?= $model['PNAME']; ?><?= $model['NAME']; ?> <?= $model['LNAME']; ?>  (<?=$model['AGE']?>ปี) </td>
+                    <td><?= $model['PNAME']; ?><?= $model['NAME']; ?> <?= $model['LNAME']; ?>  (<?= $model['AGE'] ?>ปี) </td>
                 </tr>
                 <tr>
                     <td>เกิด</td>
-                    <td><?=\Yii::$app->formatter->asDate($model['BIRTH'])?> </td>
+                    <td><?= \Yii::$app->formatter->asDate($model['BIRTH']) ?> </td>
                 </tr>
 
                 <tr>
@@ -37,11 +37,6 @@ use yii\helpers\Html;
 
 
 
-                <tr>
-                    <td>label</td>
-                    <td>data</td>
-                </tr>
-
 
             </tbody>
         </table>
@@ -51,7 +46,7 @@ use yii\helpers\Html;
 $q = "ตำบล" . $model['TMB'] . " อำเภอ" . $model['AMP'] . " จังหวัด" . $model['PROV'];
 
 if (!empty($model['LAT']) AND ! empty($model['LON']) AND $model['LAT'] > 0) {
-    $q = "loc:" . $model['LAT'] . "," . $model['LON'];
+    $q = $model['LAT'] . "," . $model['LON'];
 }
 
 $route = "//maps.google.com?q=" . $q;
