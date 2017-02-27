@@ -6,6 +6,9 @@ return [
     ],
     'ems' => [
         'class' => 'frontend\modules\ems\Ems',
+    ], 
+    'ehr' => [
+        'class' => 'frontend\modules\ehr\Ehr',
     ],
 ];
 
