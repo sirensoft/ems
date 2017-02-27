@@ -29,7 +29,8 @@ echo GridView::widget([
         'LNAME:text:นามสกุล',
         'SEX:text:เพศ',
         'AGE:integer:อายุ(ปี)',
-        'DIS:ntext:โรค'
+        'DIS:ntext:โรค',
+        'LAT','LON'
         
     ]
 ]);

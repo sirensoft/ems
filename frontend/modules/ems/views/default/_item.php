@@ -1,6 +1,7 @@
 
 
 <?php
+
 use kartik\tabs\TabsX;
 use yii\helpers\Html;
 ?>  
@@ -18,12 +19,23 @@ use yii\helpers\Html;
                 </tr>
                 <tr>
                     <td>ชื่อ-สกุล</td>
-                    <td><?= $model['PNAME']; ?><?= $model['NAME']; ?> <?= $model['LNAME']; ?>   </td>
+                    <td><?= $model['PNAME']; ?><?= $model['NAME']; ?> <?= $model['LNAME']; ?>  (<?=$model['AGE']?>ปี) </td>
                 </tr>
                 <tr>
-                    <td>พิกัด</td>
-                    <td><?= $model['LAT']; ?>,<?= $model['LON']; ?></td>
+                    <td>เกิด</td>
+                    <td><?=\Yii::$app->formatter->asDate($model['BIRTH'])?> </td>
                 </tr>
+
+                <tr>
+                    <td>ที่อยู่</td>
+                    <td>
+                        <?= $model['HOUSE'] ?> 
+                        หมู่ <?= $model['MOO'] ?> ต.<?= $model['TMB'] ?>
+                        อ.<?= $model['AMP'] ?> จ.<?= $model['PROV'] ?>
+                    </td>
+                </tr>
+
+
 
                 <tr>
                     <td>label</td>
@@ -36,14 +48,14 @@ use yii\helpers\Html;
     </div>
 </div>
 <?php
-$q= "หมู่ที่ ".$model['MOO']." ตำบล".$model['TMB']." อำเภอ".$model['AMP'];
+$q = "ตำบล" . $model['TMB'] . " อำเภอ" . $model['AMP'] . " จังหวัด" . $model['PROV'];
 
-if(!empty($model['LAT']) AND !empty($model['LON']) AND $model['LAT']>0){
-  $q =   $model['LAT'].",".$model['LON'];
+if (!empty($model['LAT']) AND ! empty($model['LON']) AND $model['LAT'] > 0) {
+    $q = "loc:" . $model['LAT'] . "," . $model['LON'];
 }
 
-$route = "//maps.google.com?q=".$q;
-$js=<<<JS
+$route = "//maps.google.com?q=" . $q;
+$js = <<<JS
       $('#btn_map').click(function(e){
           var win = window.open('$route', 'win', 'left=100,top=60,menubar=no,location=no,resizable=yes,width=820px,height=560px');
       });  
