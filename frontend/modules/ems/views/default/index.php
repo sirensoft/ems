@@ -43,7 +43,7 @@ echo TabsX::widget([
         ],
         [
             'label' => 'รายชื่อทะเบียน',
-            'content' => '',
+            'content' => $this->render('list'),
         ]
     ]
 ]);
