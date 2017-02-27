@@ -1,3 +1,5 @@
 main-local.php
 params-local.php
 test-local.php
+con_db.php
+con_hdc.php
