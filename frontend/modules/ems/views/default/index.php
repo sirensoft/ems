@@ -22,7 +22,7 @@ echo TabsX::widget([
             
         ],
         [
-            'label' => 'รายชื่อค้นหา',
+            'label' => 'ค้นหา',
             'content' => $this->render('person', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
