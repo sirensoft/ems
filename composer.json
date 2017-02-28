@@ -26,7 +26,8 @@
         "kartik-v/yii2-icons": "@dev",
         "kartik-v/yii2-tabs-x": "@dev",
         "kartik-v/yii2-ipinfo": "@dev",
-        "kartik-v/yii2-dialog": "@dev"
+        "kartik-v/yii2-dialog": "@dev",
+        "2amigos/yii2-google-maps-library" : "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
