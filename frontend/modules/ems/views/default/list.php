@@ -29,7 +29,16 @@ echo GridView::widget([
         'LNAME:text:นามสกุล',
         'SEX:text:เพศ',
         'AGE:integer:อายุ(ปี)',
-        'DIS:ntext:โรค',
+        //'DIS:ntext:โรค',
+         [
+             'attribute'=>'DIS',             
+             'label'=>'โรค',
+             'class' => 'kartik\grid\DataColumn',
+            'noWrap' => false,
+            //the line below has solved the issue
+            'contentOptions' => ['style'=>'max-width: 30%; overflow: auto; word-wrap: break-word;']
+             
+         ],
         'LAT','LON'
         
     ]
