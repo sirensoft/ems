@@ -6,10 +6,11 @@ use kartik\tabs\TabsX;
 use yii\helpers\Html;
 use yii\helpers\Url;
 ?>  
-<button class="btn btn-success" id="btn_map"><i class="glyphicon glyphicon-map-marker"></i> เส้นทาง</button>
+
 <a class="btn btn-danger" id="btn_pt" target="_blank" href="<?=  Url::to(['/ehr/default/index','pids'=>$model['CID']])?>">
     <i class="glyphicon glyphicon-alert"></i> เจ็บป่วย
 </a>
+<button class="btn btn-success" id="btn_map"><i class="glyphicon glyphicon-map-marker"></i> เส้นทาง</button>
 <div class="panel panel-default" style="margin-top: 10px">
     <div class="panel-body">
         <table class="table table-bordered table-hover">
@@ -35,6 +36,12 @@ use yii\helpers\Url;
                         <?= $model['HOUSE'] ?> 
                         หมู่ <?= $model['MOO'] ?> ต.<?= $model['TMB'] ?>
                         อ.<?= $model['AMP'] ?> จ.<?= $model['PROV'] ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>พิกัด</td>
+                    <td>
+                         <?php echo $model['LAT'].",".$model['LON']; ?>
                     </td>
                 </tr>
 
