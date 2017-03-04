@@ -6,6 +6,7 @@ $this->title = "รายละเอียด";
 $this->params['breadcrumbs'][] = "รายละเอียด";
 
 use yii\widgets\ListView;
+use yii\widgets\DetailView;
 
 
 echo ListView::widget([
@@ -14,5 +15,10 @@ echo ListView::widget([
     'layout' => '{items}'
 ]);
 
+echo "<hr>";
+$model = $dataProvider->getModels();
+echo DetailView::widget([
+    'model'=>$model[0]
+]);
 
 
