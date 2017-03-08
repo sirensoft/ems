@@ -39,9 +39,9 @@ $raw = \Yii::$app->db_hdc->createCommand($sql)->queryAll();
             $hos_json[] = [
                 'type' => 'Feature',
                 'properties' => [
-                    'HOSP' => $value['hospcode'] . '-' . $value['hosname'],
+                    'HOSP' => $value['hospcode'] . '-' . str_replace('โรงพยาบาลส่งเสริมสุขภาพตำบล','รพ.สต.',$value['hosname']),
                    
-                    'SEARCH_TEXT' => $value['hosname'],
+                    'SEARCH_TEXT' =>str_replace('โรงพยาบาลส่งเสริมสุขภาพตำบล','รพ.สต.',$value['hosname']),
                     
                 ],
                 'geometry' => [
