@@ -27,7 +27,19 @@ echo GridView::widget([
         'PNAME:text:คำนำหน้า',
         'NAME:text:ชื่อ',
         'LNAME:text:นามสกุล',
-        'SEX:text:เพศ',
+        //'SEX:text:เพศ',
+        [
+            'attribute'=>'SEX',
+            'label'=>'เพศ',
+            'filter'=>['1'=>'ชาย','2'=>'หญิง'],
+            'value'=>function($model){
+                $sex = "หญิง";
+                if($model['SEX']=='1'){
+                    $sex = 'ชาย';
+                }
+                return $sex;
+            }
+        ],
         'AGE:integer:อายุ(ปี)',
         //'DIS:ntext:โรค',
          [
