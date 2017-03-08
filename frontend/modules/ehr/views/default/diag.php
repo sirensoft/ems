@@ -8,7 +8,7 @@ use kartik\grid\GridView;
     <div class="col-md-6">
         <p class="text-green">วันที่รับบริการ : <?=$dateserv?> เวลา : <?=$timeserv?> </p>
     <p class="text-green">อาการสำคัญ : <?=$cc?></p>
-    <p class="text-green">สัญญาณชีพ : BP = <?=$sbp.':'.$dbp.' ,T='.$btemp.' ,P='.$pr.' ,R='.$rr?></p>
+    <p class="text-green">สัญญาณชีพ : BP = <?=$sbp.'/'.$dbp.' ,T='.$btemp.' ,P='.$pr.' ,R='.$rr?></p>
     </div>
    
     <div class="col-md-6">
