@@ -10,6 +10,7 @@ use yii\jui\Tabs;
 use kartik\tabs\TabsX;
 
 $this->title = "ประวัติรับบริการ";
+$fmt = \Yii::$app->formatter;
 ?>
 
 
@@ -42,7 +43,7 @@ $this->title = "ประวัติรับบริการ";
                             <p> ชื่อ-สกุล  : <?= $tname ?>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; เลขบัตรประชาชน : <?=$cid?> </p>
                             <p> ที่อยู่  : <?= $taddr ?></p>
                             <p> โรคประจำตัว  : <?= $chronic ?></p>
-                            <p> วันเกิด  : <?= $birth ?></p>
+                            <p> วันเกิด  : <?= $fmt->asDate($birth) ?></p>
                         </div>
                     </div>
                 </div>
