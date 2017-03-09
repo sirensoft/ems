@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = "ที่ตั้งหน่วยบริ�
 <div class="panel panel-info">
     
     <div class="panel-body" >
-        <div id="map" style="width: 100%;height: 70vh;"></div>   
+        <div id="map" style="width: 100%;height: 75vh;"></div>   
     </div>
 
 
@@ -162,11 +162,8 @@ var baseLayers = {
          },
          
        }).addTo(_group2);
-    map.fitBounds(tam_layer.getBounds());
-        
-     
-        
- //map.fitBounds(hos_layer.getBounds());
+    //map.fitBounds(tam_layer.getBounds());
+ map.fitBounds(hos_layer.getBounds());
         
  var overlays = { 
      "หน่วยบริการ": _group1,
