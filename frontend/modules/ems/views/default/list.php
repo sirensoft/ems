@@ -41,7 +41,7 @@ echo GridView::widget([
             }
         ],
       
-        'CID',
+        'CID:text:เลขบัตร',
         'PNAME:text:คำนำ',
         'NAME:text:ชื่อ',
         'LNAME:text:นามสกุล',
