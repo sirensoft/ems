@@ -12,8 +12,11 @@ echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
+        
         [
             'format'=>'raw',
+            
+            
             'label'=>'',
             'value'=>function($model){
                 $img = './images/men.png';
@@ -22,15 +25,19 @@ echo GridView::widget([
                 return Html::a($link, ['/ems/default/view', 'cid' =>$model['CID']]);
             }
         ],
-        //[            'class' => 'yii\grid\SerialColumn',        ],
-        /*[
-            'label'=>' ',
-            'format' => 'raw',
-            'value' => function($model) {
-                return Html::a('<i class="glyphicon glyphicon-zoom-in"></i>', ['/ems/default/view', 'cid' =>$model['CID']]);
-            },
-            'filter'=>FALSE
-        ],*/
+        [
+            'format'=>'raw',
+            'label'=>'กลุ่ม',
+            'value'=>function($model){                
+                $img = './images/heart.png';               
+                $link = Html::img($img, ['width'=>'30','height'=>'30']);
+                
+                if(strpos($model['DX'], 'I6') !== false){
+                    return $link;
+                }
+            }
+        ],
+      
         'CID',
         'PNAME:text:คำนำหน้า',
         'NAME:text:ชื่อ',
@@ -59,7 +66,7 @@ echo GridView::widget([
             'contentOptions' => ['style'=>'max-width: 30%; overflow: auto; word-wrap: break-word;']
              
          ],
-        'LAT','LON'
+        //'LAT','LON'
         
     ]
 ]);

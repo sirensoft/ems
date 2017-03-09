@@ -5,11 +5,11 @@ use yii2mod\query\ArrayQuery;
 use yii\data\ArrayDataProvider;
 
 class PersonList extends Model {
-    public $search,$CID, $NAME,$LNAME,$PNAME,$SEX;
+    public $search,$CID, $NAME,$LNAME,$PNAME,$SEX,$DX;
     
     public function rules() {
         return [
-            [['CID', 'NAME','LNAME','PNAME','SEX'], 'safe']
+            [['CID', 'NAME','LNAME','PNAME','SEX','DX'], 'safe']
         ];
     }
     public function search($params = null) {
