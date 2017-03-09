@@ -40,6 +40,22 @@ echo GridView::widget([
                 }
             }
         ],
+        [
+            'label'=>'',
+            'format'=>'raw',
+            'value'=>function($model){
+                 $img = './images/map-marker-ok.png';  
+                 $img2 = './images/map_ic.png'; 
+                 $icon = Html::img($img, ['width'=>'32','height'=>'32']);
+                 $icon2 = Html::img($img2, ['width'=>'30','height'=>'30']);    
+                if(!empty($model['LAT']) or !empty($model['LON'])){
+                    $lat = $model['LAT'];
+                    $lon = $model['LON'];          
+                    return "<a href=# onclick=\"g_map($lat,$lon)\">$icon<a>";
+                }
+                 return $icon2;
+            }
+        ],
       
         'CID:text:เลขบัตร',
         'PNAME:text:คำนำ',
@@ -60,7 +76,8 @@ echo GridView::widget([
         ],
         'AGE:integer:อายุ(ปี)',
         //'DIS:ntext:โรค',
-         [
+        
+        /*[
              'attribute'=>'DIS',             
              'label'=>'โรค',
              'class' => 'kartik\grid\DataColumn',
@@ -68,7 +85,7 @@ echo GridView::widget([
             //the line below has solved the issue
             'contentOptions' => ['style'=>'max-width: 30%; overflow: auto; word-wrap: break-word;']
              
-         ],
+         ],*/
         //'LAT','LON'
         
     ]
@@ -77,4 +94,14 @@ echo GridView::widget([
 ?>
     </div>
 </div>
+
+<?php
+$js = <<<JS
+   function g_map(lat,lon){
+         //console.log(lat+','+lon);
+        var ll = lat+','+lon;
+          var win = window.open('//maps.google.com?q='+ll, 'win', 'left=100,top=60,menubar=no,location=no,resizable=yes,width=820px,height=560px');
+      }      
+JS;
+$this->registerJs($js,  yii\web\View::POS_HEAD);
 
