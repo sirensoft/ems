@@ -15,8 +15,6 @@ echo GridView::widget([
         
         [
             'format'=>'raw',
-            
-            
             'label'=>'#',
             'value'=>function($model){
                 $img = './images/men.png';
@@ -38,7 +36,8 @@ echo GridView::widget([
                 if($model['DGROUP']=='1'){
                     return $icon;
                 }
-            }
+            },
+            'contentOptions' => ['class' => 'text-center'],
         ],
         [
             'label'=>'',

@@ -1,6 +1,9 @@
 html,
 body {
     height: 100%;
+     //background-image: url("../images/heart.png");
+     //background-color: #cccccc;
+     //background-size: 80px 60px;
    // background-color: #e8e8e8
 }
 
