@@ -17,7 +17,7 @@ echo GridView::widget([
             'format'=>'raw',
             
             
-            'label'=>'',
+            'label'=>'#',
             'value'=>function($model){
                 $img = './images/men.png';
                 if($model['SEX']=='2')$img='./images/women.png';
@@ -25,21 +25,24 @@ echo GridView::widget([
                 return Html::a($link, ['/ems/default/view', 'cid' =>$model['CID']]);
             }
         ],
+        //'DGROUP',
         [
+            'attribute'=>'DGROUP',
             'format'=>'raw',
             'label'=>'กลุ่ม',
+            'filter'=>['1'=>'CVD'],
             'value'=>function($model){                
-                $img = './images/heart.png';               
-                $link = Html::img($img, ['width'=>'30','height'=>'30']);
+                $img_cvd = './images/heart.png';               
+                $icon = Html::img($img_cvd, ['width'=>'30','height'=>'30']);
                 
-                if(strpos($model['DX'], 'I6') !== false){
-                    return $link;
+                if($model['DGROUP']=='1'){
+                    return $icon;
                 }
             }
         ],
       
         'CID',
-        'PNAME:text:คำนำหน้า',
+        'PNAME:text:คำนำ',
         'NAME:text:ชื่อ',
         'LNAME:text:นามสกุล',
         //'SEX:text:เพศ',
