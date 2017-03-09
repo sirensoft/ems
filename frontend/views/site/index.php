@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = "ที่ตั้งหน่วยบริ�
 </div>
 
 <?php
+// รพ
 $sql = " SELECT t.hcode hospcode,hh.hosname,t.lat,t.lon FROM geojson  t 
 LEFT JOIN chospital hh on hh.hoscode = t.hcode
 WHERE t.hcode in (
@@ -50,8 +51,27 @@ $raw = \Yii::$app->db_hdc->createCommand($sql)->queryAll();
                 ]
             ];
         }
-        $hos_json = json_encode($hos_json);
-
+   $hos_json = json_encode($hos_json);
+   // จบ รพ.
+   
+   /// ตำบล
+   $sql = " select * from gis_ems ";
+   $raw = \Yii::$app->db_hdc->createCommand($sql)->queryAll();
+   $tambon_json = [];
+        foreach ($raw as $value) {
+            $tambon_json[] = [
+                'type' => 'Feature',
+                'properties' => [
+                    'TAM_NAMT' => "ต." . $value['TAM_NAMT'],
+                ],
+                'geometry' => [
+                    'type' => 'MultiPolygon',
+                    'coordinates' => json_decode($value['COORDINATES']),
+                ]
+            ];
+        }
+        $tambon_json = json_encode($tambon_json);
+     // จบตำบล
 
 ?>
 <?php
@@ -77,6 +97,7 @@ var baseLayers = {
         
     };
  var _group1 = L.layerGroup().addTo(map);
+ var _group2 = L.layerGroup().addTo(map);
 
         
  
@@ -109,12 +130,29 @@ var baseLayers = {
            
     }).addTo(_group1);
         
+ 
+ var tam_layer=L.geoJson($tambon_json,{
+        style:style,
+        onEachFeature:function(feature,layer){         
+            layer.bindPopup(feature.properties.TAM_NAMT);
+            //layer.bindLabel(feature.properties.TAM_NAMT);
+            layer.on({
+                    mouseover: highlightFeatureTamLayer,
+                    mouseout: resetHighlightTamLayer,
+                    click: zoomToFeature
+                });
+         },
+         
+       }).addTo(_group2);
+    map.fitBounds(tam_layer.getBounds());
+        
      
         
- map.fitBounds(hos_layer.getBounds());
+ //map.fitBounds(hos_layer.getBounds());
         
  var overlays = { 
-     "หน่วยบริการ": _group1,      
+     "หน่วยบริการ": _group1,
+     "ขอบเขตตำบล":_group2
  };
         
         
@@ -137,6 +175,41 @@ L.control.layers(baseLayers,overlays).addTo(map);
 		});	
     });
     map.addControl( searchControl );  
+        
+        
+        
+  // other function    
+    function style(feature) {
+        return {
+            fillColor: '#4169E1',
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+        }
+    } 
+        
+    function highlightFeatureTamLayer(e) {
+        var layer = e.target;
+        layer.setStyle({
+            weight: 5,
+            color: '#B5E61D',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+        if (!L.Browser.ie && !L.Browser.opera) {
+            layer.bringToFront();
+        }
+        
+    }
+    function resetHighlightTamLayer(e) {
+        tam_layer.resetStyle(e.target);
+        
+    }
+    function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+    }
  
         
   
