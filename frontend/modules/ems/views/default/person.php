@@ -53,6 +53,16 @@ use yii\widgets\ActiveForm;
             'filterModel' => $searchModel,
             'columns' => [
                 [
+                    'format'=>'raw',
+                    'label'=>'',
+                    'value'=>function($model){
+                        $img = './images/men.png';
+                        if($model['SEX']=='2')$img='./images/women.png';
+                        $link = Html::img($img, ['width'=>'30','height'=>'30']);
+                        return Html::a($link, ['/ems/default/view', 'cid' =>$model['CID']]);
+                    }
+                ],
+                /*[
                     'class' => 'yii\grid\SerialColumn',
                 ],
                 [
@@ -62,7 +72,7 @@ use yii\widgets\ActiveForm;
                         return Html::a('<i class="glyphicon glyphicon-zoom-in"></i>', ['/ems/default/view', 'cid' =>$model['CID']]);
                     },
                     'filter'=>FALSE
-                ],
+                ],*/
                 'CID:text:เลข13หลัก',
                 'PNAME:text:คำนำหน้า',
                 'NAME:text:ชื่อ',
