@@ -13,7 +13,7 @@ class PersonList extends Model {
         ];
     }
     public function search($params = null) {
-        $sql = "select * from ems_person";
+        $sql = "select * from ems_person order by DGROUP DESC";
        
         $models = \Yii::$app->db_hdc->createCommand($sql)->queryAll();
         $query = new ArrayQuery();
