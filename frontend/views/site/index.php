@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = "ที่ตั้งหน่วยบริ�
 
 <?php
 // รพ
-$sql = " SELECT t.hcode hospcode,hh.hosname,t.lat,t.lon FROM geojson  t 
+$sql = " SELECT t.hcode hospcode,hh.hosname,t.lat,t.lon,hh.hostype FROM geojson  t 
 LEFT JOIN chospital hh on hh.hoscode = t.hcode
 WHERE t.hcode in (
  SELECT h.hoscode FROM chospital h WHERE h.provcode in (SELECT s.prov FROM sys_ems_config s)
@@ -41,7 +41,7 @@ $raw = \Yii::$app->db_hdc->createCommand($sql)->queryAll();
                 'type' => 'Feature',
                 'properties' => [
                     'HOSP' => $value['hospcode'] . '-' . str_replace('โรงพยาบาลส่งเสริมสุขภาพตำบล','รพ.สต.',$value['hosname']),
-                   
+                    'HTYPE'=>$value['hostype'],
                     'SEARCH_TEXT' =>str_replace('โรงพยาบาลส่งเสริมสุขภาพตำบล','รพ.สต.',$value['hosname']),
                     
                 ],
@@ -107,10 +107,17 @@ var baseLayers = {
  var ic_w = L.mapbox.marker.icon({'marker-color': '#FFFFFF'});//w
  var ic_g = L.mapbox.marker.icon({'marker-color': '#27e16c'});//bk
  
- var ic_m = L.ExtraMarkers.icon({
+ var ic_h1 = L.ExtraMarkers.icon({
     icon: 'fa-plus',
     markerColor: 'green',
     shape: 'square',
+    prefix: 'fa'
+  });
+ 
+ var ic_h2 = L.ExtraMarkers.icon({
+    icon: 'fa-plus',
+    markerColor: 'blue',
+    shape: 'circle',
     prefix: 'fa'
   });
         
@@ -118,13 +125,24 @@ var baseLayers = {
             
            onEachFeature:function(feature,layer){  
         
-                layer.setIcon(ic_m);                      
+                
+                layer.setIcon(ic_h1);  
+                if(feature.properties.HTYPE=='06'){
+                     layer.setIcon(ic_h2); 
+                }
+                 if(feature.properties.HTYPE=='07'){
+                     layer.setIcon(ic_h2); 
+                }
+                 if(feature.properties.HTYPE=='15'){
+                     layer.setIcon(ic_h2); 
+                }
                 var lat = feature.geometry.coordinates[1] ;
                 var lon = feature.geometry.coordinates[0] ;
                 var ll = lat+','+lon;
         
-                layer.bindPopup(feature.properties.HOSP+'<hr>'+'<a href=//www.google.co.th/maps?q='+ll+' target=_blank>ระยะทาง</a>');
-                            
+                //layer.bindPopup(feature.properties.HOSP+'<hr>'+'<a href=//www.google.co.th/maps?q='+ll+' target=_blank>ระยะทาง</a>');
+                layer.bindPopup(feature.properties.HOSP+'<hr>'+'<a href=# onclick="g_map('+lat+','+lon+')" data-q='+ll+'  >ระยะทาง</a>');
+                          
                
            },        
            
@@ -181,7 +199,7 @@ L.control.layers(baseLayers,overlays).addTo(map);
   // other function    
     function style(feature) {
         return {
-            fillColor: '#4169E1',
+            fillColor: '#84f09c',
             weight: 2,
             opacity: 1,
             color: 'white',
@@ -210,11 +228,22 @@ L.control.layers(baseLayers,overlays).addTo(map);
     function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
     }
- 
-        
+    
+    
   
 JS;
 $this->registerJs($js);
+
+$js2 = <<<JS
+   function g_map(lat,lon){
+         //console.log(lat+','+lon);
+        var ll = lat+','+lon;
+          var win = window.open('//maps.google.com?q='+ll, 'win', 'left=100,top=60,menubar=no,location=no,resizable=yes,width=820px,height=560px');
+      }      
+JS;
+$this->registerJs($js2,  yii\web\View::POS_HEAD);
+
+
 
 
 ?>
