@@ -16,7 +16,7 @@ class DefaultController extends Controller {
      */
     public function actionIndex() {
         
-        $searchModel = new TsurvielSearch();
+        $searchModel = new TsurvielSearch('75','2016-10-01','2017-09-30');
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);        
 
         return $this->render('index', [

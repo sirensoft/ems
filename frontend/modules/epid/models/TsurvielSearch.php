@@ -9,6 +9,16 @@ use yii\data\ActiveDataProvider;
 use frontend\modules\epid\models\Tsurveil;
 
 class TsurvielSearch extends Tsurveil {
+    public  $prov,$d1,$d2;
+    
+  
+     
+    function __construct($prov,$d1,$d2){
+         $this->prov= $prov;
+         $this->d1=$d1;
+         $this->d2=$d2;
+     }
+
     public function rules()
     {
         return [           
@@ -27,7 +37,9 @@ class TsurvielSearch extends Tsurveil {
  
     public function search($params){
         $query = Tsurveil::find();
-        $query->andWhere(['like','ill_areacode','75']);
+        $query->andWhere(['like','ill_areacode',  $this->prov]);
+        $query->andWhere(['>=','illdate',$this->d1]);
+       $query->andWhere(['<=','illdate',  $this->d2]);
        
         $dataProvider = new ActiveDataProvider([
             'query' => $query
@@ -36,7 +48,7 @@ class TsurvielSearch extends Tsurveil {
         $this->load($params);
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            //$query->where('0=1');
             return $dataProvider;
         }
    
