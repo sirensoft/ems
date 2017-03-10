@@ -10,5 +10,8 @@ return [
     'ehr' => [
         'class' => 'frontend\modules\ehr\Ehr',
     ],
+    'epid' => [
+            'class' => 'frontend\modules\epid\Epid',
+        ],
 ];
 
