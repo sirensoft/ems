@@ -86,8 +86,11 @@ $this->registerJsFile('./lib-gis/marker/js/leaflet.extra-markers.min.js', ['posi
                 'properties' => [
                     'TAM_NAMT' => "ต." . $value['TAM_NAMT'],
                     'TAM_CODE' => $value['TAM_CODE'],
-                    'COLOR'=> call_user_func(function()use($value){
-                        if($value['TAM_CODE']%5==0){
+                    'COLOR'=> call_user_func(function()use($value,$disease){
+                        if(empty($disease)){
+                            return '#00ff7f';
+                        }
+                        if($value['TAM_CODE']%5==0 ){
                             return '#ff4444';
                         }
                         if($value['TAM_CODE']%3==0){
@@ -132,7 +135,7 @@ $this->registerJsFile('./lib-gis/marker/js/leaflet.extra-markers.min.js', ['posi
             [
                 'attribute'=>'code506last',
                 'label'=>'โรค',
-                'filter'=>$items,
+                'filter'=>FALSE,
                 'value'=>function($model){
                     return $model->code506last."-".$model->groupname506;
                 }

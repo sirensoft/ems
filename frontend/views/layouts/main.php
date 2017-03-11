@@ -35,8 +35,8 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'เฝ้าระวัง', 'url' => ['/ems']],
-        ['label' => 'ระบาด', 'url' => ['/epid']],
+        ['label' => 'CVD', 'url' => ['/ems']],
+        ['label' => 'EPID', 'url' => ['/epid']],
         ['label' => 'เกี่ยวกับ', 'url' => ['/site/about']],
        
     ];
