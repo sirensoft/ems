@@ -85,7 +85,7 @@ $this->registerJsFile('./lib-gis/marker/js/leaflet.extra-markers.min.js', ['posi
                 'type' => 'Feature',
                 'properties' => [
                     'TAM_NAMT' => "ต." . $value['TAM_NAMT'],
-                    'TAM_CODE' => $value['TAM_CODE'],
+                    'TAM_CODE' => $value['PROV_CODE'].$value['AMP_CODE'].$value['TAM_CODE'],
                     'COLOR'=> call_user_func(function()use($value,$disease){
                         if(empty($disease)){
                             return '#00ff7f';
