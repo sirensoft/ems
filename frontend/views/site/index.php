@@ -225,7 +225,7 @@ L.control.layers(baseLayers,overlays).addTo(map);
     function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
     }
-    
+    // end other
     
   
 JS;

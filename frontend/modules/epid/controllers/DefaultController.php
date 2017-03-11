@@ -14,14 +14,15 @@ class DefaultController extends Controller {
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex($disease=NULL) {
         
         $searchModel = new TsurvielSearch('75','2016-10-01','2017-09-30');
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);        
 
         return $this->render('index', [
                     'searchModel'=>$searchModel,
-                    'dataProvider' => $dataProvider
+                    'dataProvider' => $dataProvider,
+                    'disease'=>$disease
         ]);
     }
 
