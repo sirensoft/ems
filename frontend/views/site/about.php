@@ -8,7 +8,8 @@ $this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
-    - สำนักงานสาธารณสุขจังหวัด.....
+    
+    <h4>- ระบบโปรแกรมเพื่อการเฝ้าระวังผู้ป่วยฉุกเฉิน</h4>
+    <p>- สำนักงานสาธารณสุขจังหวัดสมุทรสงคราม</p>
    
 </div>
