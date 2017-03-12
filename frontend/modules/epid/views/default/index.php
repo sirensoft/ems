@@ -139,7 +139,8 @@ $tambon_json = json_encode($tambon_json);
 
 
 $raw = Tsurveil::find()
-        ->where(['>','LAT',0])
+        ->where(['>=','LAT',10])
+        ->andWhere(['<=','LON',120])
         ->andWhere(['code506last'=>$disease])
         ->asArray()->all();
 $case_json = [];
@@ -147,7 +148,7 @@ $case_json = [];
             $case_json[] = [
                 'type' => 'Feature',
                 'properties' => [
-                    'NAME' => $value['fname'] .'-'.$value['lname'].'('.$value['groupname506'].')',                    
+                    'NAME' => $value['fname'] .' '.$value['lname'].' ('.$value['groupname506'].')',                    
                     'SEARCH_TEXT' =>$value['fname'] .'-'.$value['lname'],
                     
                 ],
@@ -252,6 +253,22 @@ var ic_h1 = L.ExtraMarkers.icon({
      "ขอบเขตตำบล":_group2
  };
   L.control.layers(baseLayers,overlays).addTo(map);
+ 
+var searchControl = new L.Control.Search({
+		layer: case_layer,
+		propertyName: 'SEARCH_TEXT',
+		circleLocation: false,
+		
+    });
+    searchControl.on('search:locationfound', function(e) {
+				
+		if(e.layer._popup)e.layer.openPopup();
+    }).on('search:collapsed', function(e) {
+		hos_layer.eachLayer(function(layer) {	
+			hos_layer.resetStyle(layer);
+		});	
+    });
+    map.addControl( searchControl ); 
         
    // other function    
     function style(feature) {
