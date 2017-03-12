@@ -53,6 +53,10 @@ $this->registerJsFile('./lib-gis/leaflet.label.js', ['position' => $this::POS_HE
 
 $this->registerCssFile('./lib-gis/marker/css/leaflet.extra-markers.min.css', ['async' => false, 'defer' => true]);
 $this->registerJsFile('./lib-gis/marker/js/leaflet.extra-markers.min.js', ['position' => $this::POS_HEAD]);
+
+$this->registerJsFile('//api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js',['position' => $this::POS_HEAD]);
+$this->registerCssFile('//api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css',['async' => false, 'defer' => true]);
+$this->registerCssFile('//api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css',['async' => false, 'defer' => true]);
 //end GIS
 ?>
 
@@ -199,9 +203,11 @@ var baseLayers = {
         "Google Street":googleStreet
  };
 // base map
+        
+
 
 var ic_h1 = L.ExtraMarkers.icon({
-    icon: 'fa-plus',
+    icon: 'fa-child',
     markerColor: 'red',
     shape: 'square',
     prefix: 'fa'
@@ -213,7 +219,12 @@ var ic_h1 = L.ExtraMarkers.icon({
     shape: 'circle',
     prefix: 'fa'
   });      
- var _group1 = L.layerGroup();
+ //var _group1 = L.layerGroup();
+  var _group1 = new L.MarkerClusterGroup({
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: true,
+        zoomToBoundsOnClick: true
+    });
  var case_layer =L.geoJson($case_json,{                
             
            onEachFeature:function(feature,layer){  
@@ -231,7 +242,7 @@ var ic_h1 = L.ExtraMarkers.icon({
     }).addTo(_group1);
 
  
- var _group2 = L.layerGroup().addTo(map);
+ var _group2 = L.layerGroup();
   var tam_layer=L.geoJson($tambon_json,{
         style:style,
         onEachFeature:function(feature,layer){         
@@ -249,8 +260,8 @@ var ic_h1 = L.ExtraMarkers.icon({
  
         
  var overlays = {
-     "ผู้ป่วย":_group1,
-     "ขอบเขตตำบล":_group2
+     "ผู้ป่วย":_group1.addTo(map),
+     "ขอบเขตตำบล":_group2.addTo(map)
  };
   L.control.layers(baseLayers,overlays).addTo(map);
  
@@ -268,8 +279,8 @@ var searchControl = new L.Control.Search({
 			hos_layer.resetStyle(layer);
 		});	
     });
-    map.addControl( searchControl ); 
-        
+    //map.addControl( searchControl ); 
+      
    // other function    
     function style(feature) {
         return {
