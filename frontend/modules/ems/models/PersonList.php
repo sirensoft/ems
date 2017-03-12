@@ -25,6 +25,7 @@ class PersonList extends Model {
              $query->andFilterWhere(['PNAME'=> $this->PNAME]);
              $query->andFilterWhere(['SEX'=> $this->SEX]);
              $query->andFilterWhere(['DGROUP'=> $this->DGROUP]);
+             $query->andFilterWhere(['like','DX',$this->DX]);
              
             
         }

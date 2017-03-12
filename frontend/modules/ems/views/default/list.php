@@ -55,7 +55,7 @@ echo GridView::widget([
                  return $icon2;
             }
         ],
-      
+        'DX:text:วินิจฉัย',       
         'CID:text:เลขบัตร',
         'PNAME:text:คำนำ',
         'NAME:text:ชื่อ',
