@@ -34,6 +34,8 @@ use Yii;
  * @property string $groupname1560
  * @property string $groupname190
  * @property string $groupname506
+ * @property string $LAT
+ * @property string $LON
  */
 class Tsurveil extends \yii\db\ActiveRecord
 {
@@ -42,7 +44,7 @@ class Tsurveil extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 't_surveil';
+        return 't_surveil_ems';
     }
 
     /**
@@ -60,7 +62,7 @@ class Tsurveil extends \yii\db\ActiveRecord
     {
         return [
             [['hospcode', 'pid', 'cid', 'seq', 'fname', 'lname', 'sex', 'areacode', 'birth', 'age_y', 'age_m', 'age_d', 'date_serv', 'diagcode', 'code506', 'illdate', 'ptstatus'], 'required'],
-            [['birth', 'date_serv', 'datetime_admit', 'illdate', 'date_death'], 'safe'],
+            [['birth', 'date_serv', 'datetime_admit', 'illdate', 'date_death','LAT','LON'], 'safe'],
             [['age_y', 'age_m', 'age_d'], 'integer'],
             [['hospcode'], 'string', 'max' => 5],
             [['pid'], 'string', 'max' => 15],
@@ -111,6 +113,8 @@ class Tsurveil extends \yii\db\ActiveRecord
             'groupname1560' => 'Groupname1560',
             'groupname190' => 'Groupname190',
             'groupname506' => 'Groupname506',
+            'LAT'=>'LAT',
+            'LON'=>'LON'
         ];
     }
 }

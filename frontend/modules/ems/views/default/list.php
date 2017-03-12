@@ -55,7 +55,13 @@ echo GridView::widget([
                  return $icon2;
             }
         ],
-        'DX:text:วินิจฉัย',       
+        [
+            'attribute'=>'DX',
+            'label'=>'วินิจฉัย',
+            'contentOptions'=>[
+                'class'=>'text-center'
+            ]
+        ],       
         'CID:text:เลขบัตร',
         'PNAME:text:คำนำ',
         'NAME:text:ชื่อ',

@@ -12,6 +12,7 @@ use miloschuman\highcharts\HighchartsAsset;
 HighchartsAsset::register($this)->withScripts(['modules/exporting', 'modules/drilldown']);
 
 use frontend\modules\epid\models\GisEms;
+use frontend\modules\epid\models\Tsurveil;
 
 //GIS
 $css = <<<CSS
@@ -135,6 +136,29 @@ foreach ($raw as $value) {
     ];
 }
 $tambon_json = json_encode($tambon_json);
+
+
+$raw = Tsurveil::find()
+        ->where(['>','LAT',0])
+        ->andWhere(['code506last'=>$disease])
+        ->asArray()->all();
+$case_json = [];
+        foreach ($raw as $value) {
+            $case_json[] = [
+                'type' => 'Feature',
+                'properties' => [
+                    'NAME' => $value['fname'] .'-'.$value['lname'].'('.$value['groupname506'].')',                    
+                    'SEARCH_TEXT' =>$value['fname'] .'-'.$value['lname'],
+                    
+                ],
+                'geometry' => [
+                    'type' => 'Point',
+                    'coordinates' => [$value['LON'] * 1, $value['LAT'] * 1],
+                ]
+            ];
+        }
+   $case_json = json_encode($case_json);
+
 ?>
 
 
@@ -175,6 +199,37 @@ var baseLayers = {
  };
 // base map
 
+var ic_h1 = L.ExtraMarkers.icon({
+    icon: 'fa-plus',
+    markerColor: 'red',
+    shape: 'square',
+    prefix: 'fa'
+  });
+ 
+ var ic_h2 = L.ExtraMarkers.icon({
+    icon: 'fa-plus',
+    markerColor: 'blue',
+    shape: 'circle',
+    prefix: 'fa'
+  });      
+ var _group1 = L.layerGroup();
+ var case_layer =L.geoJson($case_json,{                
+            
+           onEachFeature:function(feature,layer){  
+              layer.setIcon(ic_h1); 
+               var lat = feature.geometry.coordinates[1] ;
+                var lon = feature.geometry.coordinates[0] ;
+                var ll = lat+','+lon;
+        
+                //layer.bindPopup(feature.properties.HOSP+'<hr>'+'<a href=//www.google.co.th/maps?q='+ll+' target=_blank>ระยะทาง</a>');
+                layer.bindPopup(feature.properties.NAME+'<hr>'+'<a href=# onclick="g_map('+lat+','+lon+')" data-q='+ll+'  >ระยะทาง</a>');
+                  
+               
+           },        
+           
+    }).addTo(_group1);
+
+ 
  var _group2 = L.layerGroup().addTo(map);
   var tam_layer=L.geoJson($tambon_json,{
         style:style,
@@ -192,7 +247,8 @@ var baseLayers = {
    map.fitBounds(tam_layer.getBounds());
  
         
- var overlays = {      
+ var overlays = {
+     "ผู้ป่วย":_group1,
      "ขอบเขตตำบล":_group2
  };
   L.control.layers(baseLayers,overlays).addTo(map);
@@ -289,6 +345,16 @@ $js2 = <<<JS
     $("#chart").width('100%');
 JS;
 $this->registerJs($js2);
+
+
+$js3 = <<<JS
+   function g_map(lat,lon){
+         //console.log(lat+','+lon);
+        var ll = lat+','+lon;
+          var win = window.open('//maps.google.com?q='+ll, 'win', 'left=100,top=60,menubar=no,location=no,resizable=yes,width=820px,height=560px');
+      }      
+JS;
+$this->registerJs($js3,  yii\web\View::POS_HEAD);
 
 
 
