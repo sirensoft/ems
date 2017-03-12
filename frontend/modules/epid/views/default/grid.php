@@ -9,6 +9,7 @@
         'panel'=>[
             'before'=>''
         ],
+	'responsiveWrap' => false,
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
         'columns'=>[

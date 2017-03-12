@@ -86,16 +86,37 @@ $js=<<<JS
          },
         icon:'fa fa-street-view'
       }).addTo(map);
+ 
+//base map
+var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+var googleStreet = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+        
+var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+        
+var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+//http://stackoverflow.com/questions/9394190/leaflet-map-api-with-google-satellite-layer
         
 var baseLayers = {
-	"แผนที่ถนน": L.mapbox.tileLayer('mapbox.streets').addTo(map),  
-        "แผนที่ถนนละเอียด":L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png'),
-        "แผนที่ดาวเทียม": L.mapbox.tileLayer('mapbox.satellite'),
-       
-        
-        
-        
-    };
+	"OSM ภูมิประเทศ": L.mapbox.tileLayer('mapbox.streets'),  
+        "OSM ถนน":L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map),
+        "OSM ดาวเทียม": L.mapbox.tileLayer('mapbox.satellite'),
+        "Google Hybrid":googleHybrid,
+        "Google Street":googleStreet
+ };
+// base map
+ 
  var _group1 = L.layerGroup().addTo(map);
  var _group2 = L.layerGroup().addTo(map);
 

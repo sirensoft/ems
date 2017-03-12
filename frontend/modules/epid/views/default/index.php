@@ -143,11 +143,37 @@ $tambon_json = json_encode($tambon_json);
 $js = <<<JS
    L.mapbox.accessToken = 'pk.eyJ1IjoibHRjIiwiYSI6ImNpeWUya3NkcTAwdTEyd214N3R0MWt0dmoifQ.q7C6rPbI2hphy4yMIMW82w';
    var map = L.mapbox.map('map', 'mapbox.streets').setView([16,100], 9);
-   var baseLayers = {
-	"แผนที่ถนน": L.mapbox.tileLayer('mapbox.streets'),  
-        "แผนที่ถนนละเอียด":L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map),
-        "แผนที่ดาวเทียม": L.mapbox.tileLayer('mapbox.satellite'),
-    };
+   
+        
+  //base map
+var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+var googleStreet = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+        
+var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+        
+var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+//http://stackoverflow.com/questions/9394190/leaflet-map-api-with-google-satellite-layer
+        
+var baseLayers = {
+	"OSM ภูมิประเทศ": L.mapbox.tileLayer('mapbox.streets'),  
+        "OSM ถนน":L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map),
+        "OSM ดาวเทียม": L.mapbox.tileLayer('mapbox.satellite'),
+        "Google Hybrid":googleHybrid,
+        "Google Street":googleStreet
+ };
+// base map
 
  var _group2 = L.layerGroup().addTo(map);
   var tam_layer=L.geoJson($tambon_json,{
