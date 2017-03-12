@@ -144,7 +144,7 @@ $tambon_json = json_encode($tambon_json);
 
 $raw = Tsurveil::find()
         ->where(['>=','LAT',10])
-        ->andWhere(['<=','LON',120])
+        ->andWhere(['<=','LON',120])       
         ->andWhere(['code506last'=>$disease])
         ->asArray()->all();
 $case_json = [];
