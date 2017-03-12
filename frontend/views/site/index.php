@@ -217,7 +217,7 @@ L.control.layers(baseLayers,overlays).addTo(map);
   // other function    
     function style(feature) {
         return {
-            fillColor: '#84f09c',
+            fillColor: '#ff7f50',
             weight: 2,
             opacity: 1,
             color: 'white',
