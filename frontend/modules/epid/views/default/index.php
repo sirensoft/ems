@@ -342,7 +342,7 @@ $js2 = <<<JS
         text: 'ปี 2560'
     },
     subtitle: {
-        text: 'แฟ้ม SURVIEL'
+        text: 'โรค $disease'
     },
     xAxis: {
         categories: ['มค', 'กพ', 'มีค', 'เมษ', 'พค', 'มิย', 'กค', 'สค', 'กย', 'ตค', 'พย', 'ธค']
