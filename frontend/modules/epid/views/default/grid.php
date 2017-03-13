@@ -17,6 +17,7 @@
             ['class' => 'yii\grid\SerialColumn'],
             //'hospcode',
             //'pid',
+            
             [
                 'label'=>'',
                 'format'=>'raw',
@@ -33,10 +34,6 @@
                      return $icon2;
                 }
             ],
-            'fname',
-            'lname',
-            'illdate',
-            'ill_areacode',
             [
                 'attribute'=>'code506last',
                 'label'=>'โรค',
@@ -45,7 +42,13 @@
                     return $model->code506last."-".$model->groupname506;
                 }
             ],
-            'LAT','LON'
+            'fname:text:ชื่อ',
+            'lname:text:นามสกุล',
+            'illdate:date:ป่วย',
+           
+            
+            'LAT','LON',
+             'ill_areacode:text:รหัสพื้นที่',
             
             //'groupname506:text:ชื่อโรค'
         ]
