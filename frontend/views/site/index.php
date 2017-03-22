@@ -130,14 +130,14 @@ var baseLayers = {
  
  var ic_h1 = L.ExtraMarkers.icon({
     icon: 'fa-plus',
-    markerColor: 'green',
+    markerColor: 'blue',
     shape: 'square',
     prefix: 'fa'
   });
  
  var ic_h2 = L.ExtraMarkers.icon({
     icon: 'fa-plus',
-    markerColor: 'blue',
+    markerColor: 'green',
     shape: 'circle',
     prefix: 'fa'
   });
