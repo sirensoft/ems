@@ -25,7 +25,7 @@ FROM t_person_cid t
 LEFT JOIN cchangwat cw on cw.changwatcode = LEFT(t.check_vhid,2)
 LEFT JOIN campur ca on ca.ampurcodefull = LEFT(t.check_vhid,4)
 LEFT JOIN ctambon ct on ct.tamboncodefull = LEFT(t.check_vhid,6)
-LEFT JOIN home h ON h.HOSPCODE = t.HOSPCODE AND h.HID = t.HID
+LEFT JOIN ems_home h ON h.HOSPCODE = t.HOSPCODE AND h.HID = t.HID
 
 LEFT JOIN cprename ON cprename.id_prename = t.PRENAME  WHERE t.CID = '$cid'";
 
