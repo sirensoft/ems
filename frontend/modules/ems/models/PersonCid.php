@@ -17,9 +17,12 @@ class PersonCid extends Model {
         if (!empty($params['PersonCid']['search'])) {
             $search = $params['PersonCid']['search'];           
             
-            $sql = "SELECT cp.prename PNAME,p.*,h.CHANGWAT,h.AMPUR,h.TAMBON,h.VILLAGE,h.HOUSE,h.LATITUDE,h.LONGITUDE FROM t_person_cid p
+            $sql = "SELECT cp.prename PNAME,p.*,h.CHANGWAT,h.AMPUR,h.TAMBON
+                ,h.VILLAGE,h.HOUSE,h.LATITUDE,h.LONGITUDE ,ct.tambonname TMB
+                FROM t_person_cid p
 LEFT JOIN ems_home h ON p.HOSPCODE = h.HOSPCODE AND p.HID = h.HID
 LEFT JOIN cprename cp ON cp.id_prename = p.PRENAME
+LEFT JOIN ctambon ct on ct.tamboncodefull = LEFT(p.check_vhid,6)
 WHERE  (p.CID  LIKE '%$search%' OR p.`NAME` LIKE '%$search%'  OR p.LNAME LIKE '%$search%'  
 or CONCAT(p.`NAME`,' ',p.LNAME) LIKE '%$search%' ) LIMIT 25 ";
         }

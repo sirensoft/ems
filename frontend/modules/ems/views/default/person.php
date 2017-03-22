@@ -94,7 +94,7 @@ use yii\widgets\ActiveForm;
                      }
                 ],
                 'age_y:integer:อายุ(ปี)',
-                'TAMBON:text:ตำบล','VILLAGE:text:หมู่','HOUSE:text:บลท.'        
+                'TMB:text:ตำบล','VILLAGE:text:หมู่','HOUSE:text:บลท.'        
                 
             ]
         ]);
