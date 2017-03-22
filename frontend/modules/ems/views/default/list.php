@@ -63,8 +63,15 @@ echo GridView::widget([
             ]
         ],       
         'CID:text:เลขบัตร',
-        'PNAME:text:คำนำ',
-        'NAME:text:ชื่อ',
+        //'PNAME:text:คำนำ',
+        //'NAME:text:ชื่อ',
+         [
+             'attribute'=>'NAME',
+             'label'=>'ชื่อ',
+             'value'=>function($model){
+                return $model['PNAME'].$model['NAME'];
+             }
+         ],
         'LNAME:text:นามสกุล',
         //'SEX:text:เพศ',
         [
@@ -80,6 +87,7 @@ echo GridView::widget([
             }
         ],
         'AGE:integer:อายุ(ปี)',
+        'TMB:text:ตำบล','MOO:text:หมู่','HOUSE:text:บลท.'        
         //'DIS:ntext:โรค',
         
         /*[

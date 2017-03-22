@@ -74,8 +74,15 @@ use yii\widgets\ActiveForm;
                     'filter'=>FALSE
                 ],*/
                 'CID:text:เลข13หลัก',
-                'PNAME:text:คำนำหน้า',
-                'NAME:text:ชื่อ',
+                //'PNAME:text:คำนำหน้า',
+                //'NAME:text:ชื่อ',
+                 [
+                    'attribute'=>'NAME',
+                    'label'=>'ชื่อ',
+                    'value'=>function($model){
+                       return $model['PNAME'].$model['NAME'];
+                    }
+                 ],
                 'LNAME:text:นามสกุล',
                 [
                     'attribute'=>'SEX',
@@ -87,6 +94,7 @@ use yii\widgets\ActiveForm;
                      }
                 ],
                 'age_y:integer:อายุ(ปี)',
+                'TAMBON:text:ตำบล','VILLAGE:text:หมู่','HOUSE:text:บลท.'        
                 
             ]
         ]);
