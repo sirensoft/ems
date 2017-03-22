@@ -7,6 +7,10 @@ use yii\data\ArrayDataProvider;
 class PersonList extends Model {
     public $search,$CID, $NAME,$LNAME,$PNAME,$SEX,$DX,$DGROUP;
     
+     function __construct($group) {
+         $this->DGROUP = $group;
+     }
+    
     public function rules() {
         return [
             [['CID', 'NAME','LNAME','PNAME','SEX','DX','DGROUP'], 'safe']
@@ -18,9 +22,10 @@ class PersonList extends Model {
         $models = \Yii::$app->db_hdc->createCommand($sql)->queryAll();
         $query = new ArrayQuery();
         $query->from($models);
+        $query->where(['DGROUP'=> $this->DGROUP]);
         if ($this->load($params) && $this->validate()) {
              $query->andFilterWhere(['like', 'CID', $this->CID]);
-            $query->andFilterWhere(['like', 'NAME', $this->NAME]);
+               $query->andFilterWhere(['like', 'NAME', $this->NAME]);
              $query->andFilterWhere(['like', 'LNAME', $this->LNAME]);
              $query->andFilterWhere(['PNAME'=> $this->PNAME]);
              $query->andFilterWhere(['SEX'=> $this->SEX]);

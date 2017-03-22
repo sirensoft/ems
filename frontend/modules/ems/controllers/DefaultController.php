@@ -19,7 +19,8 @@ class DefaultController extends Controller
         $searchModel = new PersonCid();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
         
-        $personList = new PersonList();
+        $personList = new PersonList(1);
+        //$personList->DGROUP = 1;
          $dataProviderList = $personList->search(\Yii::$app->request->queryParams);
         
         return $this->render('index', [

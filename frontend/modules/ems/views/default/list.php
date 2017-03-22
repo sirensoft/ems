@@ -28,7 +28,7 @@ echo GridView::widget([
             'attribute'=>'DGROUP',
             'format'=>'raw',
             'label'=>'กลุ่ม',
-            'filter'=>['1'=>'CVD'],
+            'filter'=>FALSE,
             'value'=>function($model){                
                 $img_cvd = './images/heart.png';               
                 $icon = Html::img($img_cvd, ['width'=>'30','height'=>'30']);

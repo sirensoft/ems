@@ -13,13 +13,16 @@ use yii\helpers\Html;
 echo TabsX::widget([
     'items' => [
         [
-            'label' => 'รายชื่อทะเบียน',
+            'label' => 'กลุ่มป่วย',
             'content' => $this->render('list',[
                 'searchModel' => $personList,
                 'dataProvider' => $dataProviderList,
             ]),
             'active'=>  !isset($_GET['PersonCid']['search'])
             
+        ],
+        [
+            'label'=>'กลุ่มเสี่ยง'
         ],
         [
             'label' => 'ค้นหา',
