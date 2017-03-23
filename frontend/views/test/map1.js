@@ -4,6 +4,20 @@ var map = new google.maps.Map(div_map, {
     center: {lat: 16, lng: 100},
     zoom: 12
 });
+var drawingManager = new google.maps.drawing.DrawingManager().setMap(map);
+
+var cityCircle = new google.maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    map: map,
+    center: map.center,
+    radius: 10000
+});
+
+
 var infoWindow = new google.maps.InfoWindow();
 
 var a = new google.maps.LatLng(16, 100);
@@ -31,7 +45,7 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-   
+
     var marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location
@@ -39,6 +53,6 @@ function createMarker(place) {
 
     google.maps.event.addListener(marker, 'click', function () {
         infoWindow.setContent(place.name);
-        infoWindow.open(map,this);
+        infoWindow.open(map, this);
     });
 }

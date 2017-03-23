@@ -2,7 +2,7 @@
 
 
 <?php
-$this->registerJsFile('//maps.googleapis.com/maps/api/js?key=AIzaSyDtrQxIgZGCXrChaNgCc0yCFCAyTFEmHU8&language=th&region=TH&libraries=geometry,places', ['position' => $this::POS_HEAD]);
+$this->registerJsFile('//maps.googleapis.com/maps/api/js?key=AIzaSyDtrQxIgZGCXrChaNgCc0yCFCAyTFEmHU8&language=th&region=TH&libraries=geometry,places,drawing', ['position' => $this::POS_HEAD]);
 ?>
 
 
