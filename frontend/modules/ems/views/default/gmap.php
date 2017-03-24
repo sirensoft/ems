@@ -19,7 +19,7 @@ var map = new google.maps.Map(div_map, {
     zoom: 12
 });
 
-createMarkerLatLng(pCenter, '<p>$name</p>' + '<a href=//maps.google.com?q=16,10>ระยะทาง</a>');
+createMarkerLatLng(pCenter, '<p>$name</p>' + '<a href=//maps.google.com?q=$lat,$lon>ระยะทาง</a>');
 
 
 var cityCircle = new google.maps.Circle({
@@ -30,13 +30,13 @@ var cityCircle = new google.maps.Circle({
     fillOpacity: 0.18,
     map: map,
     center: pCenter,
-    radius: 10000
+    radius: 8000
 });
 
 
 var request = {
     location: pCenter,
-    radius: 10000,
+    radius: 8000,
     types: ['hospital']
 };
 
@@ -74,10 +74,13 @@ function createMarker(place) {
     });
 }
 
+        
+
 function createMarkerLatLng(latlng, info) {
 
     var marker = new google.maps.Marker({
-        map: map,
+        icon :'//maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        map: map,        
         position: latlng
     });
 
