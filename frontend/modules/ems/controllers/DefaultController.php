@@ -39,4 +39,13 @@ class DefaultController extends Controller
             'dataProvider'=>$dataProvider
         ]);
     }
+    
+    public function actionGmap($lat,$lon,$name){
+        $this->layout='custom';
+        return $this->render('gmap',[
+            'lat'=>$lat,
+            'lon'=>$lon,
+            'name'=>$name
+        ]);
+    }
 }

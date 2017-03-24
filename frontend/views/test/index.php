@@ -6,7 +6,7 @@ $this->registerJsFile('//maps.googleapis.com/maps/api/js?key=AIzaSyDtrQxIgZGCXrC
 ?>
 
 
-<div id="map" style="height: 80vh"></div>
+<div id="map" ></div>
 
 <?php
 

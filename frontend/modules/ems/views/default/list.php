@@ -2,6 +2,7 @@
 
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 <div class="panel panel-default">
     
@@ -49,8 +50,9 @@ echo GridView::widget([
                  $icon2 = Html::img($img2, ['width'=>'30','height'=>'30']);    
                 if(!empty($model['LAT']) or !empty($model['LON'])){
                     $lat = $model['LAT'];
-                    $lon = $model['LON'];          
-                    return "<a href=# onclick=\"g_map($lat,$lon)\">$icon<a>";
+                    $lon = $model['LON']; 
+                    $name = $model['NAME'];
+                    return "<a href=# onclick=\"g_map($lat,$lon,'$name')\">$icon<a>";
                 }
                  return $icon2;
             }
@@ -109,12 +111,14 @@ echo GridView::widget([
 </div>
 
 <?php
+$route_gmap = Url::toRoute(['/ems/default/gmap']);
 $js = <<<JS
-   function g_map(lat,lon){
+   function g_map(lat,lon,name){
          //console.log(lat+','+lon);
         var ll = lat+','+lon;
-          var win = window.open('//maps.google.com?q='+ll, 'win', 'left=100,top=60,menubar=no,location=no,resizable=yes,width=820px,height=560px');
-      }      
+        var win = window.open('$route_gmap&lat='+lat+'&lon='+lon+'&name='+name, 'win', 'left=100,top=60,menubar=no,location=no,resizable=yes,width=820px,height=560px');
+      
+        }      
 JS;
 $this->registerJs($js,  yii\web\View::POS_HEAD);
 
