@@ -11,6 +11,7 @@ $this->registerJsFile('//maps.googleapis.com/maps/api/js?key=AIzaSyDtrQxIgZGCXrC
 <?php
 $js=<<<JS
 
+var infoWindow = new google.maps.InfoWindow();
 var div_map = document.getElementById('map');
 var pCenter = new google.maps.LatLng($lat, $lon);
 
@@ -19,7 +20,8 @@ var map = new google.maps.Map(div_map, {
     zoom: 12
 });
 
-createMarkerLatLng(pCenter, '<p>$name</p>' + '<a href=//maps.google.com?q=$lat,$lon>ระยะทาง</a>');
+var m = createMarkerLatLng(pCenter, '<p>$name</p>' + '<a href=//maps.google.com?q=$lat,$lon>ระยะทาง</a>');
+new google.maps.event.trigger(m, 'click' );
 
 
 var cityCircle = new google.maps.Circle({
@@ -27,7 +29,7 @@ var cityCircle = new google.maps.Circle({
     strokeOpacity: 0.5,
     strokeWeight: 1,
     fillColor: '#00ff00',
-    fillOpacity: 0.18,
+    fillOpacity: 0.1,
     map: map,
     center: pCenter,
     radius: 8000
@@ -53,7 +55,7 @@ function callback(results, status) {
     }
 }
 
-var infoWindow = new google.maps.InfoWindow();
+
 var hos_icon = {
     url: "//cdn3.iconfinder.com/data/icons/medical-2-1/512/map_marker-256.png", // url
     scaledSize: new google.maps.Size(32, 32), // scaled size
@@ -61,6 +63,7 @@ var hos_icon = {
     anchor: new google.maps.Point(0, 0) // anchor
 };
 function createMarker(place) {
+    
 
     var marker = new google.maps.Marker({
         icon: hos_icon,
@@ -77,17 +80,24 @@ function createMarker(place) {
         
 
 function createMarkerLatLng(latlng, info) {
+   
 
     var marker = new google.maps.Marker({
         icon :'//maps.google.com/mapfiles/ms/icons/blue-dot.png',
         map: map,        
         position: latlng
     });
+   
 
     google.maps.event.addListener(marker, 'click', function () {
+         var infoWindow = new google.maps.InfoWindow();
         infoWindow.setContent(info);
         infoWindow.open(map, this);
     });
+     
+    return marker;
+   
+    
 }
 
         

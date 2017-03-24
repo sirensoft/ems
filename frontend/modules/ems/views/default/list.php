@@ -51,7 +51,7 @@ echo GridView::widget([
                 if(!empty($model['LAT']) or !empty($model['LON'])){
                     $lat = $model['LAT'];
                     $lon = $model['LON']; 
-                    $name = $model['NAME'];
+                    $name = $model['PNAME'].$model['NAME']." ".$model['LNAME']."(".$model['AGE']."ปี)";
                     return "<a href=# onclick=\"g_map($lat,$lon,'$name')\">$icon<a>";
                 }
                  return $icon2;
