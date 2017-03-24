@@ -28,17 +28,22 @@ echo GridView::widget([
         [
             'attribute'=>'RISKGROUP',
             'format'=>'raw',
-            'label'=>'กลุ่ม',
+            'label'=>'ระดับ',
             'filter'=>FALSE,
-            'value'=>function($model){                
-                $img_cvd = './images/heart.png';               
-                $icon = Html::img($img_cvd, ['width'=>'30','height'=>'30']);
-                
+            'value'=>function($model){
                 if($model['RISKGROUP']=='5'){
-                    return $icon;
+                    return "อันตราย";
+                }  else {
+                    return "สูง";
                 }
             },
-            'contentOptions' => ['class' => 'text-center'],
+            'contentOptions' => function($model){
+                if($model['RISKGROUP']=='5'){
+                 return ['style' => "color:white;background-color:red;",'class' => 'text-center'];
+                }else{
+                 return ['style' => "color:black;background-color:orange;",'class' => 'text-center'];   
+                }
+            }
         ],
         [
             'label'=>'',

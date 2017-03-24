@@ -1,5 +1,5 @@
 <?php
-$this->title = "ค้นหา";
+$this->title = "CVD";
 $this->params['breadcrumbs'][] = "ค้นหาผู้ป่วย";
 
 use yii\widgets\ActiveForm;
@@ -13,21 +13,23 @@ use yii\helpers\Html;
 echo TabsX::widget([
     'items' => [
         [
-            'label' => 'กลุ่มป่วย',
-            'content' => $this->render('list',[
-                'searchModel' => $personList,
-                'dataProvider' => $dataProviderList,
-            ]),
-            'active'=>  !isset($_GET['PersonCid']['search'])
-            
-        ],
-        [
             'label'=>'กลุ่มเสี่ยง',
             'content' => $this->render('risk',[
                 'searchModel' => $personRisk,
                 'dataProvider' => $dataProviderRisk,
             ]),
+            
         ],
+        [
+            'label' => 'กลุ่มป่วย',
+            'content' => $this->render('list',[
+                'searchModel' => $personList,
+                'dataProvider' => $dataProviderList,
+            ]),
+            //'active'=>  !isset($_GET['PersonCid']['search'])
+            
+        ],
+        
         [
             'label' => 'ค้นหา',
             'content' => $this->render('person', [
