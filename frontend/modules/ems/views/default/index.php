@@ -22,7 +22,11 @@ echo TabsX::widget([
             
         ],
         [
-            'label'=>'กลุ่มเสี่ยง'
+            'label'=>'กลุ่มเสี่ยง',
+            'content' => $this->render('risk',[
+                'searchModel' => $personRisk,
+                'dataProvider' => $dataProviderRisk,
+            ]),
         ],
         [
             'label' => 'ค้นหา',
