@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50531
 File Encoding         : 65001
 
-Date: 2017-03-22 18:57:26
+Date: 2017-03-25 08:39:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,18 +27,24 @@ CREATE TABLE `ems_user` (
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
+  `role` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fullname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `officer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hospcode` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
+  `last_login` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ems_user
 -- ----------------------------
-INSERT INTO `ems_user` VALUES ('1', 'admin', 'gnHl7qU68t5gqnd3AaRaRNkIrRiaJWmQ', '$2y$13$tknmacmE71ZhfXmeN1uT4eoA.KsMBYFrowd5f2eWlARoLEmw0IK4e', null, 'admin@localhost.com', '10', '1488034856', '1488034856');
+INSERT INTO `ems_user` VALUES ('1', 'med', 'gnHl7qU68t5gqnd3AaRaRNkIrRiaJWmQ', '$2y$13$tknmacmE71ZhfXmeN1uT4eoA.KsMBYFrowd5f2eWlARoLEmw0IK4e', null, 'admin@localhost.com', '10', '1', null, null, null, '1488034856', '1488034856', null);
+INSERT INTO `ems_user` VALUES ('3', 'driver', 'xUh44aNPZZwDPfstE4yuS7uds9N8OsYe', '$2y$13$ta9ZK3ESjKy1Ol80G49RdupoR1Y0txd15cD6iwm.YG93MxS4amI9e', null, 'drive@local.com', '10', '2', null, null, null, '1490405059', '1490405059', null);
 
 -- ----------------------------
 -- Procedure structure for ems_all
@@ -49,6 +55,7 @@ CREATE DEFINER=`ems`@`127.0.0.1` PROCEDURE `ems_all`()
 BEGIN
 	CALL ems_home;
 	CALL ems_person;
+	CALL ems_risk;
 
 END
 ;;
@@ -87,12 +94,12 @@ BEGIN
 DROP TABLE IF EXISTS ems_person;
 CREATE TABLE ems_person (
 SELECT p.CID,cprename.prename PNAME,pn.`NAME`,pn.LNAME,pn.SEX,pn.age_y AGE
-,GROUP_CONCAT(DISTINCT p.diagcode) DX ,GROUP_CONCAT(DISTINCT cicd10tm.diagtname) DIS
+,p.mix_dx DX 
 ,pn.check_vhid,cw.changwatname PROV,ca.ampurname AMP,ct.tambonname TMB
 ,RIGHT(pn.check_vhid,2) MOO ,h.HOUSE,h.LATITUDE LAT,h.LONGITUDE LON
 ,'g' as DGROUP
 
-FROM t_diag_opd p 
+FROM t_cvd_ill p 
 INNER JOIN t_person_cid pn on pn.CID = p.CID 
 AND pn.DISCHARGE = 9 AND LEFT(pn.check_vhid,2) = (SELECT prov FROM sys_ems_config LIMIT 1)
 
@@ -102,21 +109,57 @@ LEFT JOIN ctambon ct on ct.tamboncodefull = LEFT(pn.check_vhid,6)
 LEFT JOIN ems_home h ON h.HOSPCODE = pn.HOSPCODE AND h.HID = pn.HID
 
 LEFT JOIN cprename ON cprename.id_prename = pn.PRENAME
-LEFT JOIN cicd10tm ON cicd10tm.diagcode = p.diagcode
 
-WHERE p.diagcode in (
-	SELECT t.diagcode from c_ems_disease t 
-	WHERE t.ems = 1 AND t.diagcode NOT BETWEEN 'I10' AND 'I15' 
-)  AND p.CID <> '' AND p.CID IS NOT NULL
+
+
  
 GROUP BY p.CID 
 );
 
-UPDATE ems_person t SET t.DGROUP = '1'
-WHERE t.DX LIKE '%I6%';
+UPDATE ems_person t SET t.DGROUP = '1';
 
 UPDATE ems_person t SET t.DGROUP = NULL
 WHERE t.DGROUP NOT IN (1,2,3,4,5);
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for ems_risk
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ems_risk`;
+DELIMITER ;;
+CREATE DEFINER=`ems`@`127.0.0.1` PROCEDURE `ems_risk`()
+BEGIN
+	
+DROP TABLE IF EXISTS ems_risk;
+CREATE TABLE ems_risk (
+SELECT p.CID,cprename.prename PNAME,pn.`NAME`,pn.LNAME,pn.SEX,pn.age_y AGE
+,p.mix_dx DX 
+,pn.check_vhid,cw.changwatname PROV,ca.ampurname AMP,ct.tambonname TMB
+,RIGHT(pn.check_vhid,2) MOO ,h.HOUSE,h.LATITUDE LAT,h.LONGITUDE LON
+,p.L_RISK_SCORE  'SCORE'
+,IF(p.L_RISK_SCORE >=40 ,5,4) RISKGROUP
+
+FROM t_cvdrisk_fl p 
+INNER JOIN t_person_cid pn on pn.CID = p.CID 
+AND pn.DISCHARGE = 9 AND LEFT(pn.check_vhid,2) = (SELECT prov FROM sys_ems_config LIMIT 1)
+
+LEFT JOIN cchangwat cw on cw.changwatcode = LEFT(pn.check_vhid,2)
+LEFT JOIN campur ca on ca.ampurcodefull = LEFT(pn.check_vhid,4)
+LEFT JOIN ctambon ct on ct.tamboncodefull = LEFT(pn.check_vhid,6)
+LEFT JOIN ems_home h ON h.HOSPCODE = pn.HOSPCODE AND h.HID = pn.HID
+
+LEFT JOIN cprename ON cprename.id_prename = pn.PRENAME
+
+WHERE p.L_RISK_SCORE >=30
+
+ 
+GROUP BY p.CID 
+);
+
+
 
 END
 ;;
