@@ -3,6 +3,7 @@
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use common\components\MyHelper;
 ?>
 <div class="panel panel-default">
     
@@ -43,7 +44,8 @@ echo GridView::widget([
                 }else{
                  return ['style' => "color:black;background-color:orange;",'class' => 'text-center'];   
                 }
-            }
+            },
+            'visible'=> MyHelper::getRole()=='1'
         ],
         [
             'label'=>'',
@@ -67,7 +69,8 @@ echo GridView::widget([
             'label'=>'วินิจฉัย',
             'contentOptions'=>[
                 'class'=>'text-center'
-            ]
+            ],
+            'visible'=> MyHelper::getRole()=='1'
         ],       
         'CID:text:เลขบัตร',
         //'PNAME:text:คำนำ',

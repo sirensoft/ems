@@ -9,16 +9,17 @@ use yii\data\ArrayDataProvider;
 use common\components\MyHelper;
 use frontend\modules\ehr\models\LogEhr;
 use frontend\modules\ehr\models\OnOffEhr;
+use common\components\AppController;
 
 
 
 
-class DefaultController extends Controller {
+class DefaultController extends AppController {
      public $enableCsrfValidation = false; //เพิ่ม
   
     public function actionIndex($pids=null) {
         $this->layout = 'main';
-        //$this->permitRole([2,4,5,6]);// เพิ่ม
+        $this->permitRole([1]);// เพิ่ม
         
         $onoff  = OnOffEhr::find()->one();
         if($onoff->status !== 'on'){
