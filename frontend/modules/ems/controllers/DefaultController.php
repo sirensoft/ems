@@ -7,13 +7,15 @@ use frontend\modules\ems\models\PersonCid;
 use frontend\modules\ems\models\PersonList;
 use frontend\modules\ems\models\PersonView;
 use frontend\modules\ems\models\PersonRisk;
+use common\components\AppController;
 
 /**
  * Default controller for the `ems` module
  */
-class DefaultController extends Controller {
+class DefaultController extends AppController {
 
     public function actionIndex() {
+        $this->permitRole([1,2]);
         $searchModel = new PersonCid();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
 

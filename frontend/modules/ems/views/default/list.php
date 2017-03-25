@@ -4,7 +4,7 @@ use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\components\MyHelper;
-echo MyHelper::getRole();
+
 ?>
 <div class="panel panel-default">
     
