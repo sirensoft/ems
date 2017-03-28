@@ -4,6 +4,7 @@ use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\components\MyHelper;
+$this->params['breadcrumbs'][] = "ค้นหากลุ่มเสี่ยงต่อการเกิดโรคหัวใจและหลอดเลือด";
 ?>
 <div class="panel panel-default">
     
@@ -11,6 +12,7 @@ use common\components\MyHelper;
 <?php
 echo GridView::widget([
     'responsiveWrap' => false,
+    'panel'=>['before'=>''],
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
@@ -21,7 +23,7 @@ echo GridView::widget([
             'value'=>function($model){
                 $img = './images/men.png';
                 if($model['SEX']=='2')$img='./images/women.png';
-                $link = Html::img($img, ['width'=>'30','height'=>'30']);
+                $link = Html::img($img, ['width'=>'30','height'=>'30','title'=>'ประวัติรับบริการ']);
                 return Html::a($link, ['/ems/default/view', 'cid' =>$model['CID']]);
             }
         ],
@@ -29,7 +31,7 @@ echo GridView::widget([
         [
             'attribute'=>'RISKGROUP',
             'format'=>'raw',
-            'label'=>'ระดับ',
+            'label'=>'เสี่ยงระดับ',
             'filter'=>FALSE,
             'value'=>function($model){
                 if($model['RISKGROUP']=='5'){
@@ -53,8 +55,8 @@ echo GridView::widget([
             'value'=>function($model){
                  $img = './images/map-marker-ok.png';  
                  $img2 = './images/map_ic.png'; 
-                 $icon = Html::img($img, ['width'=>'32','height'=>'32']);
-                 $icon2 = Html::img($img2, ['width'=>'30','height'=>'30']);    
+                 $icon = Html::img($img, ['width'=>'32','height'=>'32','title'=>'มีพิกัดบ้าน']);
+                 $icon2 = Html::img($img2, ['width'=>'30','height'=>'30','title'=>'ไม่มีพิกัดบ้าน']);    
                 if(!empty($model['LAT']) or !empty($model['LON'])){
                     $lat = $model['LAT'];
                     $lon = $model['LON']; 

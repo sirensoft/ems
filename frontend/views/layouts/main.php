@@ -28,15 +28,15 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '<i class="glyphicon glyphicon-plus"></i> EMS',
+        'brandLabel' => '<i class="glyphicon glyphicon-plus"></i> EMS <span class="title-ems" style="margin-left:5px">สำนักงานสาธารณสุขจังหวัดสมุทรสงคราม</span>',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-custom navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'CVD', 'url' => ['/ems']],
-        ['label' => 'EPID', 'url' => ['/epid']],
+        ['label' => 'CVD', 'url' => ['/ems/default/index']],
+        ['label' => 'EPID', 'url' => ['/epid/default/index']],
         ['label' => 'เกี่ยวกับ', 'url' => ['/site/about']],
        
     ];

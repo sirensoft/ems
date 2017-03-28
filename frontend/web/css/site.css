@@ -122,3 +122,9 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+@media only screen and (max-width: 479px) {
+  .title-ems {
+    display: none;
+  }
+}
+

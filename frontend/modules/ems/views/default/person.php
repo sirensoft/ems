@@ -49,6 +49,7 @@ use yii\widgets\ActiveForm;
         <?php
         echo GridView::widget([
             'responsiveWrap' => false,
+            'panel'=>['before'=>''],
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
@@ -58,7 +59,7 @@ use yii\widgets\ActiveForm;
                     'value'=>function($model){
                         $img = './images/men.png';
                         if($model['SEX']=='2')$img='./images/women.png';
-                        $link = Html::img($img, ['width'=>'30','height'=>'30']);
+                        $link = Html::img($img, ['width'=>'30','height'=>'30','title'=>'ประวัติรับบริการ']);
                         return Html::a($link, ['/ems/default/view', 'cid' =>$model['CID']]);
                     }
                 ],

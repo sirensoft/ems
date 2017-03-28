@@ -1,6 +1,6 @@
 <?php
 $this->title = "CVD";
-$this->params['breadcrumbs'][] = "ค้นหาผู้ป่วย";
+
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
@@ -44,5 +44,10 @@ echo TabsX::widget([
 ]);
 ?>
 
+<?php
+
+$js = <<<JS
+        
+JS;
 
 
