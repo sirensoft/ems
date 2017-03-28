@@ -31,7 +31,7 @@ echo GridView::widget([
         [
             'attribute'=>'RISKGROUP',
             'format'=>'raw',
-            'label'=>'เสี่ยงระดับ',
+            'label'=>'เสี่ยง',
             'filter'=>FALSE,
             'value'=>function($model){
                 if($model['RISKGROUP']=='5'){
@@ -42,9 +42,9 @@ echo GridView::widget([
             },
             'contentOptions' => function($model){
                 if($model['RISKGROUP']=='5'){
-                 return ['style' => "color:white;background-color:red;",'class' => 'text-center'];
+                 return ['style' => "color:white;background-color:#ff0000;",'class' => 'text-center'];
                 }else{
-                 return ['style' => "color:black;background-color:orange;",'class' => 'text-center'];   
+                 return ['style' => "color:white;background-color:#ff7373;",'class' => 'text-center'];   
                 }
             },
             'visible'=> MyHelper::getRole()=='1'
