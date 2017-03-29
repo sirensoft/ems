@@ -7,7 +7,7 @@ use yii\helpers\Url;
 use kartik\tabs\TabsX;
 use yii\helpers\Html;
 
-$title_cvd = "ค้นหากลุ่มเสี่ยงต่อการเกิดโรคหัวใจและหลอดเลือด";
+$title_cvd = "กลุ่มเสี่ยงต่อการเกิดโรคหัวใจและหลอดเลือด";
 if(isset($_GET['PersonCid']['search'])){
   $title_cvd =  "ค้นหาจากฐานข้อมูล";
 }
@@ -67,7 +67,7 @@ $(function() {
         var title ='';
         var txt = $(e.target).text();
         if(txt=='กลุ่มเสี่ยง'){
-            title = 'ค้นหากลุ่มเสี่ยงต่อการเกิดโรคหัวใจและหลอดเลือด';
+            title = 'กลุ่มเสี่ยงต่อการเกิดโรคหัวใจและหลอดเลือด';
         }
         if(txt=='กลุ่มป่วย'){
             title = 'ข้อมูลผู้ป่วยโรคหัวใจและหลอดเลือด';
