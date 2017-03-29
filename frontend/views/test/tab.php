@@ -6,7 +6,7 @@ echo Tabs::widget([
     'items' => [
         [
             'label' => 'one',
-            'content' => $this->render('i_tab1',[
+            'content' => $this->render('_tab',[
                 'data'=>'ทดสอบ.....'
             ]),
             'active' => true,
