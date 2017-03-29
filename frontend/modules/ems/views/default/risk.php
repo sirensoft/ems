@@ -4,7 +4,7 @@ use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\components\MyHelper;
-$this->params['breadcrumbs'][] = "ค้นหากลุ่มเสี่ยงต่อการเกิดโรคหัวใจและหลอดเลือด";
+
 ?>
 <div class="panel panel-default">
     

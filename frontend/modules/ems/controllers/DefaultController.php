@@ -35,6 +35,8 @@ class DefaultController extends AppController {
                     'dataProviderRisk'=>$dataProviderRisk
         ]);
     }
+    
+  
 
     public function actionView($cid = null) {
         $searchModel = new PersonView();
