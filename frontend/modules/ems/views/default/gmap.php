@@ -51,7 +51,7 @@ function callback(results, status) {
             console.log(i);
             if (!results[i].name.search("โรงพยาบาล") || !results[i].name.search("Hospital") ){
               
-                if(results[i].name=="โรงพยาบาลนภาลัย" || results[i].name=="โรงพยาบาลสมเด็จพระพุทธเลิศหล้า" || results[i].name=="โรงพยาบาลอัมพวา"){
+                if(results[i].name=="โรงพยาบาลบางแพ" || results[i].name=="โรงพยาบาล ดำเนินสะดวก" || results[i].name=="โรงพยาบาลนภาลัย" || results[i].name=="โรงพยาบาลสมเด็จพระพุทธเลิศหล้า" || results[i].name=="โรงพยาบาลอัมพวา"){
                     createMarker2(results[i]);
                 }else{
                     createMarker(results[i]);
